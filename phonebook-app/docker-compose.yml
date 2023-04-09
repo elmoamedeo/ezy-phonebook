@@ -1,7 +1,8 @@
 version: '3.8'
 
 services:
-  backend:
+  ezy-server:
+    container_name: ezy-backend
     build:
       context: .
       dockerfile: ./Dockerfile
@@ -10,16 +11,16 @@ services:
     ports:
       - "8080:8080"
     depends_on:
-      - postgres-ezy
+      - ezy-postgres
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-ezy:5432/phonebook
+      SPRING_DATASOURCE_URL: jdbc:postgresql://ezy-postgres:5432/phonebook
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
     networks:
       - ezy_network
-  postgres-ezy:
+  ezy-postgres:
     image: postgres:14.1
-    container_name: postgres-ezy
+    container_name: ezy-postgres
     restart: always
     environment:
       POSTGRES_USER: postgres

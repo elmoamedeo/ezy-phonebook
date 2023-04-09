@@ -1,8 +1,8 @@
 version: '3'
 
 services:
-  next-app:
-    container_name: ezy
+  ezy-app:
+    container_name: ezy-frontend
     build:
       context: .
       dockerfile: Dockerfile
