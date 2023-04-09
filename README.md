@@ -15,3 +15,7 @@ docker-compose up
 
 3. The application will be available at http://localhost:3000
 4. Alternatively, you can run the application locally. You will need to have Java 11 and Node.js installed. The instructions for running the applications locally can be found in the README files in the `phonebook-app` and `phonebook` directories.
+
+## Docs
+
+The api-docs can be found at http://localhost:8080/swagger-ui/index.html, the backend also has the capability to generate openapi docs with the gradle task generateOpenApiDocs. A generated doc file was added under the docs directory.
