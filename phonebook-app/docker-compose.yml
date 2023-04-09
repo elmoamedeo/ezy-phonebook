@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      args:
+        - JAR_FILE=phonebook-app/build/libs/*.jar
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres-ezy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-ezy:5432/phonebook
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+    networks:
+      - ezy_network
+  postgres-ezy:
+    image: postgres:14.1
+    container_name: postgres-ezy
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: phonebook
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    networks:
+      - ezy_network
+    ports:
+      - '5432:5432'
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -h localhost -p 5432 -U prisma -d phonebook || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres:
+
+networks:
+  ezy_network:
+     external: true
