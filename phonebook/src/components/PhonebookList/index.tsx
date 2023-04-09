@@ -3,6 +3,7 @@ import { usePhonebook } from '@/src/context/PhonebookContext';
 import { IPhonebook } from '@/src/@types/phonebook';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+import PhoneIcon from '@material-ui/icons/Phone';
 import {
   IconButton,
   List,
@@ -40,8 +41,20 @@ export const PhonebookList = ({ query, handleEditClick }: IPhonebookList) => {
               }}
             >
               <ListItemText
+                secondaryTypographyProps={{
+                  style:{
+                    alignItems:'center',
+                    display:'flex',
+                    gap:10
+                  }
+                }}
                 primary={`${phonebook.firstName} ${phonebook.lastName}`}
-                secondary={phonebook.phoneNumber}
+                secondary={
+                  <>
+                    <PhoneIcon fontSize='small' />
+                    {phonebook.phoneNumber}
+                  </>
+                }
               />
               <ListItemSecondaryAction>
                 <IconButton onClick={() => handleEditClick(phonebook)}>
