@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  next-app:
+    container_name: ezy
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:8080
+    volumes:
+      - ./phonebook/src:/app/src
+      - ./phonebook/public:/app/public
+    restart: always
+    ports:
+      - "3000:3000"
+    networks:
+      - ezy_network
+
+networks:
+  ezy_network:
+    external: true
